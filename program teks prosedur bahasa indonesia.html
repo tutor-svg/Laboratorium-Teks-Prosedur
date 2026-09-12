@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorium Teks Prosedur - Bahasa Indonesia Kelas XII</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f7fb;
+        color: #1f2937;
+    }
+
+    header {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        color: white;
+        padding: 28px 20px;
+    }
+
+    header .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    header h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+    }
+
+    header p {
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .progress-box {
+        background: white;
+        padding: 15px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,.06);
+    }
+
+    .progress {
+        height: 10px;
+        background: #e5e7eb;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #2563eb;
+        transition: .3s;
+    }
+
+    .step-nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        margin-bottom: 20px;
+    }
+
+    .step {
+        padding: 10px 14px;
+        border-radius: 20px;
+        background: #e5e7eb;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .step.active {
+        background: #2563eb;
+        color: white;
+    }
+
+    .section {
+        display: none;
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 5px 20px rgba(0,0,0,.07);
+        margin-bottom: 20px;
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    h2 {
+        color: #1d4ed8;
+        margin-top: 0;
+    }
+
+    h3 {
+        color: #374151;
+    }
+
+    .info {
+        background: #eff6ff;
+        border-left: 5px solid #2563eb;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+
+    .warning {
+        background: #fff7ed;
+        border-left: 5px solid #f97316;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+
+    .success {
+        background: #ecfdf5;
+        border-left: 5px solid #10b981;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin: 15px 0 7px;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        font-family: inherit;
+        font-size: 15px;
+    }
+
+    textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    button {
+        border: none;
+        padding: 11px 18px;
+        border-radius: 9px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 5px;
+        background: #2563eb;
+        color: white;
+    }
+
+    button:hover {
+        opacity: .9;
+    }
+
+    .btn-secondary {
+        background: #64748b;
+    }
+
+    .btn-success {
+        background: #059669;
+    }
+
+    .btn-warning {
+        background: #d97706;
+    }
+
+    .btn-danger {
+        background: #dc2626;
+    }
+
+    .idea-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+        gap: 12px;
+        margin: 15px 0;
+    }
+
+    .idea-card {
+        border: 2px solid #e5e7eb;
+        padding: 15px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .idea-card:hover {
+        border-color: #2563eb;
+        background: #eff6ff;
+    }
+
+    .structure {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+        gap: 15px;
+    }
+
+    .structure-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 15px;
+    }
+
+    .structure-card strong {
+        color: #2563eb;
+    }
+
+    .checker-item {
+        border: 1px solid #e5e7eb;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+    }
+
+    .checker-item.error {
+        background: #fef2f2;
+        border-left: 5px solid #ef4444;
+    }
+
+    .checker-item.warning {
+        background: #fffbeb;
+        border-left: 5px solid #f59e0b;
+    }
+
+    .checker-item.ok {
+        background: #ecfdf5;
+        border-left: 5px solid #10b981;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        background: #e5e7eb;
+        margin: 3px;
+    }
+
+    .quiz-question {
+        margin-bottom: 25px;
+        padding: 18px;
+        background: #f8fafc;
+        border-radius: 12px;
+    }
+
+    .option {
+        display: block;
+        padding: 10px;
+        margin: 7px 0;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .option:hover {
+        background: #eff6ff;
+    }
+
+    .score {
+        font-size: 42px;
+        font-weight: bold;
+        color: #2563eb;
+        text-align: center;
+        margin: 20px;
+    }
+
+    .result-box {
+        text-align: center;
+        padding: 25px;
+        background: #eff6ff;
+        border-radius: 15px;
+    }
+
+    .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .before, .after {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .before {
+        background: #fef2f2;
+    }
+
+    .after {
+        background: #ecfdf5;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    @media(max-width:700px) {
+        header h1 {
+            font-size: 23px;
+        }
+
+        .section {
+            padding: 18px;
+        }
+
+        .comparison {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Laboratorium Teks Prosedur</h1>
+        <p>Bahasa Indonesia Kelas XII — Dari Ide Menjadi Teks Prosedur yang Efektif</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="progress-box">
+        <strong>Progress Pembelajaran</strong>
+        <span id="progressText">0%</span>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div class="step-nav">
+        <div class="step active">1. Ide</div>
+        <div class="step">2. Struktur</div>
+        <div class="step">3. Menulis</div>
+        <div class="step">4. Penyuntingan</div>
+        <div class="step">5. Parafrase</div>
+        <div class="step">6. Kuis</div>
+        <div class="step">7. Evaluasi</div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="section active" id="step1">
+
+        <h2>1. Tentukan Ide atau Tema</h2>
+
+        <p>
+            Teks prosedur berisi langkah-langkah yang sistematis untuk
+            melakukan atau membuat sesuatu.
+        </p>
+
+        <div class="info">
+            <strong>Tantangan:</strong>
+            Pilih sebuah kegiatan yang dapat dijelaskan melalui
+            langkah-langkah yang jelas dan berurutan.
+        </div>
+
+        <h3>Contoh ide</h3>
+
+        <div class="idea-grid">
+            <div class="idea-card" onclick="pilihIde('Cara membuat portofolio digital')">
+                💻 Cara membuat portofolio digital
+            </div>
+
+            <div class="idea-card" onclick="pilihIde('Cara membuat video presentasi')">
+                🎬 Cara membuat video presentasi
+            </div>
+
+            <div class="idea-card" onclick="pilihIde('Cara membuat CV yang menarik')">
+                📄 Cara membuat CV yang menarik
+            </div>
+
+            <div class="idea-card" onclick="pilihIde('Cara membuat akun email')">
+                📧 Cara membuat akun email
+            </div>
+
+            <div class="idea-card" onclick="pilihIde('Cara melakukan pembayaran digital')">
+                💳 Cara melakukan pembayaran digital
+            </div>
+        </div>
+
+        <label>Ide atau tema saya</label>
+        <input type="text" id="ide" placeholder="Contoh: Cara membuat portofolio digital">
+
+        <label>Jenis teks prosedur</label>
+
+        <select id="jenis">
+            <option value="">-- Pilih --</option>
+            <option>Prosedur sederhana</option>
+            <option>Prosedur kompleks</option>
+            <option>Prosedur protokol</option>
+        </select>
+
+        <br><br>
+
+        <button onclick="simpanIde()">Simpan Ide →</button>
+
+        <div id="hasilIde"></div>
+
+    </section>
+
+
+    <!-- STEP 2 -->
+    <section class="section" id="step2">
+
+        <h2>2. Kenali Struktur Teks Prosedur</h2>
+
+        <p>
+            Sebelum menulis, tentukan fungsi setiap bagian teks.
+        </p>
+
+        <div class="structure">
+
+            <div class="structure-card">
+                <strong>1. Judul</strong>
+                <p>
+                    Menunjukkan kegiatan atau tujuan prosedur.
+                </p>
+                <small>Contoh: Cara Membuat Portofolio Digital</small>
+            </div>
+
+            <div class="structure-card">
+                <strong>2. Tujuan</strong>
+                <p>
+                    Menjelaskan hasil yang ingin dicapai.
+                </p>
+            </div>
+
+            <div class="structure-card">
+                <strong>3. Alat/Bahan</strong>
+                <p>
+                    Menjelaskan sesuatu yang diperlukan.
+                </p>
+            </div>
+
+            <div class="structure-card">
+                <strong>4. Langkah-langkah</strong>
+                <p>
+                    Berisi tahapan kegiatan secara urut dan logis.
+                </p>
+            </div>
+
+            <div class="structure-card">
+                <strong>5. Penutup</strong>
+                <p>
+                    Berisi hasil, simpulan, atau saran jika diperlukan.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="info">
+            <strong>Ciri kebahasaan yang perlu diperhatikan:</strong>
+            <ul>
+                <li>Kalimat imperatif/perintah.</li>
+                <li>Kata kerja tindakan.</li>
+                <li>Kata penghubung urutan.</li>
+                <li>Istilah teknis sesuai topik.</li>
+                <li>Kalimat efektif dan tidak bertele-tele.</li>
+            </ul>
+        </div>
+
+        <label>Judul</label>
+        <input id="judul" placeholder="Tuliskan judul prosedur">
+
+        <label>Tujuan</label>
+        <textarea id="tujuan" placeholder="Jelaskan tujuan prosedur"></textarea>
+
+        <label>Alat/Bahan</label>
+        <textarea id="alat" placeholder="Tuliskan alat atau bahan yang diperlukan"></textarea>
+
+        <button onclick="simpanStruktur()">Simpan Struktur →</button>
+
+        <div id="hasilStruktur"></div>
+
+    </section>
+
+
+    <!-- STEP 3 -->
+    <section class="section" id="step3">
+
+        <h2>3. Tulis Langkah-langkah</h2>
+
+        <div class="info">
+            Tuliskan langkah secara berurutan. Gunakan kata kerja tindakan
+            dan hindari langkah yang ambigu.
+        </div>
+
+        <label>Langkah-langkah prosedur</label>
+
+        <textarea id="langkah"
+        placeholder="Contoh:
+1. Buka aplikasi pengolah kata.
+2. Buat dokumen baru.
+3. Tuliskan identitas diri.
+4. Masukkan pengalaman dan keterampilan.
+5. Simpan dokumen dalam format PDF."></textarea>
+
+        <label>Penutup / hasil yang diharapkan</label>
+
+        <textarea id="penutup"
+        placeholder="Tuliskan hasil akhir dari prosedur"></textarea>
+
+        <button onclick="simpanTulisan()">Periksa Tulisan →</button>
+
+        <div id="hasilTulisan"></div>
+
+    </section>
+
+
+    <!-- STEP 4 -->
+    <section class="section" id="step4">
+
+        <h2>4. Laboratorium Penyuntingan</h2>
+
+        <div class="warning">
+            <strong>Perhatikan!</strong>
+            KBBI digunakan untuk memastikan kata yang digunakan sesuai
+            dengan kosakata baku. Untuk ejaan dan tanda baca, gunakan
+            kaidah EYD Edisi V.
+        </div>
+
+        <p>
+            Sistem akan melakukan pemeriksaan dasar terhadap tulisanmu.
+            Pemeriksaan ini adalah simulasi dan tidak menggantikan proses
+            penyuntingan manusia.
+        </p>
+
+        <div id="hasilCek">
+            <p>Belum ada tulisan yang diperiksa.</p>
+        </div>
+
+        <button onclick="jalankanPemeriksaan()">
+            🔍 Periksa Bahasa
+        </button>
+
+    </section>
+
+
+    <!-- STEP 5 -->
+    <section class="section" id="step5">
+
+        <h2>5. Parafrase Kalimat</h2>
+
+        <p>
+            Parafrase adalah menyampaikan kembali informasi dengan
+            susunan kata yang berbeda tanpa mengubah makna.
+        </p>
+
+        <label>Kalimat asli</label>
+
+        <textarea id="kalimatAsli"
+        placeholder="Contoh: Setelah itu kemudian masukkan data ke dalam aplikasi."></textarea>
+
+        <button onclick="parafrase()">Buat Saran Parafrase</button>
+
+        <div id="hasilParafrase"></div>
+
+        <div class="info">
+            <strong>Ingat:</strong>
+            Parafrase bukan sekadar mengganti semua kata dengan sinonim.
+            Makna utama harus tetap dipertahankan.
+        </div>
+
+    </section>
+
+
+    <!-- STEP 6 -->
+    <section class="section" id="step6">
+
+        <h2>6. Kuis Teks Prosedur</h2>
+
+        <p>
+            Jawab semua pertanyaan berikut.
+        </p>
+
+        <div id="quizContainer"></div>
+
+        <button onclick="cekQuiz()">Periksa Jawaban</button>
+
+        <div id="hasilQuiz"></div>
+
+    </section>
+
+
+    <!-- STEP 7 -->
+    <section class="section" id="step7">
+
+        <h2>7. Evaluasi Akhir</h2>
+
+        <p>
+            Evaluasi ini membantu kamu mengetahui bagian mana yang sudah
+            dikuasai dan bagian mana yang masih perlu diperbaiki.
+        </p>
+
+        <div class="result-box">
+
+            <h3>Skor Pembelajaran</h3>
+
+            <div class="score" id="skorAkhir">0</div>
+
+            <p id="kategori">
+                Selesaikan aktivitas untuk mendapatkan hasil.
+            </p>
+
+        </div>
+
+        <div id="feedbackAkhir"></div>
+
+        <button onclick="resetAplikasi()" class="btn-danger">
+            Mulai dari Awal
+        </button>
+
+    </section>
+
+</div>
+
+<footer>
+    Laboratorium Teks Prosedur — Media Pembelajaran Bahasa Indonesia Kelas XII
+</footer>
+
+
+<script>
+
+let currentStep = 1;
+let progress = 0;
+let nilaiQuiz = 0;
+let pemeriksaanSelesai = false;
+
+const langkahStep = 7;
+
+function updateProgress() {
+
+    let persen = Math.round(((currentStep - 1) / (langkahStep - 1)) * 100);
+
+    document.getElementById("progressBar").style.width = persen + "%";
+    document.getElementById("progressText").innerText = persen + "%";
+
+    document.querySelectorAll(".step").forEach((el, index) => {
+        el.classList.toggle("active", index === currentStep - 1);
+    });
+}
+
+
+function goToStep(step) {
+
+    document.querySelectorAll(".section").forEach(el => {
+        el.classList.remove("active");
+    });
+
+    document.getElementById("step" + step).classList.add("active");
+
+    currentStep = step;
+
+    updateProgress();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function pilihIde(ide) {
+    document.getElementById("ide").value = ide;
+}
+
+
+function simpanIde() {
+
+    const ide = document.getElementById("ide").value.trim();
+    const jenis = document.getElementById("jenis").value;
+
+    if (!ide || !jenis) {
+
+        alert("Silakan isi ide/tema dan jenis teks prosedur.");
+
+        return;
+    }
+
+    document.getElementById("hasilIde").innerHTML = `
+        <div class="success">
+            <strong>Ide berhasil disimpan!</strong>
+            <p>Ide: <strong>${ide}</strong></p>
+            <p>Jenis: <strong>${jenis}</strong></p>
+        </div>
+    `;
+
+    setTimeout(() => {
+        goToStep(2);
+    }, 700);
+}
+
+
+function simpanStruktur() {
+
+    const judul = document.getElementById("judul").value.trim();
+    const tujuan = document.getElementById("tujuan").value.trim();
+    const alat = document.getElementById("alat").value.trim();
+
+    if (!judul || !tujuan || !alat) {
+
+        alert("Lengkapi judul, tujuan, dan alat/bahan.");
+
+        return;
+    }
+
+    document.getElementById("hasilStruktur").innerHTML = `
+        <div class="success">
+            <strong>Struktur dasar berhasil dibuat.</strong>
+            <p>Sekarang lanjutkan dengan menulis langkah-langkah.</p>
+        </div>
+    `;
+
+    setTimeout(() => {
+        goToStep(3);
+    }, 700);
+}
+
+
+function simpanTulisan() {
+
+    const langkah = document.getElementById("langkah").value.trim();
+    const penutup = document.getElementById("penutup").value.trim();
+
+    if (!langkah || !penutup) {
+
+        alert("Tuliskan langkah-langkah dan penutup.");
+
+        return;
+    }
+
+    document.getElementById("hasilTulisan").innerHTML = `
+        <div class="success">
+            <strong>Tulisan berhasil disimpan.</strong>
+            <p>Sekarang kita masuk ke laboratorium penyuntingan.</p>
+        </div>
+    `;
+
+    setTimeout(() => {
+        goToStep(4);
+    }, 700);
+}
+
+
+function jalankanPemeriksaan() {
+
+    const teks = (
+        document.getElementById("judul").value + " " +
+        document.getElementById("tujuan").value + " " +
+        document.getElementById("alat").value + " " +
+        document.getElementById("langkah").value + " " +
+        document.getElementById("penutup").value
+    );
+
+    let hasil = [];
+    let jumlahError = 0;
+
+    // Kata tidak baku umum
+    const kataBaku = {
+        "aktifitas": "aktivitas",
+        "ijin": "izin",
+        "resiko": "risiko",
+        "praktek": "praktik",
+        "apotik": "apotek",
+        "analisa": "analisis",
+        "kwalitas": "kualitas",
+        "sistim": "sistem",
+        "merubah": "mengubah",
+        "sekedar": "sekadar",
+        "ijin": "izin",
+        "silahkan": "silakan",
+        "himbauan": "imbauan",
+        "karir": "karier"
+    };
+
+    Object.keys(kataBaku).forEach(kata => {
+
+        const regex = new RegExp("\\b" + kata + "\\b", "gi");
+
+        if (regex.test(teks)) {
+
+            jumlahError++;
+
+            hasil.push(`
+                <div class="checker-item error">
+                    <strong>Kata perlu diperiksa</strong>
+                    <p>
+                        Ditemukan kata <b>${kata}</b>.
+                    </p>
+                    <p>
+                        Saran: gunakan <b>${kataBaku[kata]}</b>.
+                    </p>
+                    <span class="badge">Kata baku</span>
+                </div>
+            `);
+        }
+    });
+
+
+    // Spasi sebelum tanda baca
+    if (/\s+[,.!?;:]/.test(teks)) {
+
+        jumlahError++;
+
+        hasil.push(`
+            <div class="checker-item error">
+                <strong>Spasi sebelum tanda baca</strong>
+                <p>
+                    Hindari spasi sebelum tanda baca seperti koma,
+                    titik, tanda tanya, atau tanda seru.
+                </p>
+                <p>
+                    Contoh salah: <b>"Langkah berikutnya , buka aplikasi."</b>
+                </p>
+                <p>
+                    Perbaikan: <b>"Langkah berikutnya, buka aplikasi."</b>
+                </p>
+                <span class="badge">EYD</span>
+            </div>
+        `);
+    }
+
+
+    // Spasi ganda
+    if (/ {2,}/.test(teks)) {
+
+        jumlahError++;
+
+        hasil.push(`
+            <div class="checker-item warning">
+                <strong>Spasi ganda ditemukan</strong>
+                <p>
+                    Gunakan satu spasi antarkata.
+                </p>
+                <span class="badge">Kerapian</span>
+            </div>
+        `);
+    }
+
+
+    // Kalimat terlalu panjang
+    const kalimat = teks.split(/[.!?]/);
+
+    kalimat.forEach(k => {
+
+        const jumlahKata = k.trim().split(/\s+/).length;
+
+        if (jumlahKata > 30) {
+
+            hasil.push(`
+                <div class="checker-item warning">
+                    <strong>Kalimat cukup panjang</strong>
+                    <p>
+                        Salah satu kalimat memiliki lebih dari 30 kata.
+                        Pertimbangkan untuk memecahnya menjadi dua
+                        kalimat agar lebih efektif.
+                    </p>
+                    <span class="badge">Kalimat efektif</span>
+                </div>
+            `);
+
+        }
+
+    });
+
+
+    // Pengulangan kata
+    if (/\b(kemudian kemudian|setelah itu kemudian|lalu kemudian)\b/i.test(teks)) {
+
+        hasil.push(`
+            <div class="checker-item warning">
+                <strong>Pengulangan makna</strong>
+                <p>
+                    Frasa seperti "setelah itu kemudian" dapat disederhanakan.
+                </p>
+                <p>
+                    Contoh: <b>"Setelah itu, masukkan data."</b>
+                </p>
+                <span class="badge">Keefektifan</span>
+            </div>
+        `);
+    }
+
+
+    if (hasil.length === 0) {
+
+        hasil.push(`
+            <div class="checker-item ok">
+                <strong>✓ Tidak ditemukan masalah dasar.</strong>
+                <p>
+                    Namun, tetap lakukan penyuntingan secara manual
+                    untuk memastikan ketepatan makna, struktur,
+                    dan pilihan kata.
+                </p>
+            </div>
+        `);
+
+    } else {
+
+        hasil.unshift(`
+            <div class="warning">
+                Sistem menemukan <strong>${jumlahError}</strong>
+                hal yang perlu diperiksa.
+            </div>
+        `);
+
+    }
+
+
+    document.getElementById("hasilCek").innerHTML = hasil.join("");
+
+    pemeriksaanSelesai = true;
+
+    setTimeout(() => {
+        goToStep(5);
+    }, 1200);
+}
+
+
+function parafrase() {
+
+    let teks = document.getElementById("kalimatAsli").value.trim();
+
+    if (!teks) {
+
+        alert("Masukkan kalimat terlebih dahulu.");
+
+        return;
+    }
+
+    let hasil = teks;
+
+    // Beberapa pola sederhana untuk simulasi pembelajaran
+    hasil = hasil.replace(
+        /setelah itu kemudian/gi,
+        "setelah itu"
+    );
+
+    hasil = hasil.replace(
+        /kemudian kemudian/gi,
+        "kemudian"
+    );
+
+    hasil = hasil.replace(
+        /lalu kemudian/gi,
+        "selanjutnya"
+    );
+
+    hasil = hasil.replace(
+        /masukkan/gi,
+        "inputkan"
+    );
+
+    hasil = hasil.replace(
+        /buka aplikasi/gi,
+        "jalankan aplikasi"
+    );
+
+    hasil = hasil.replace(
+        /agar supaya/gi,
+        "agar"
+    );
+
+    hasil = hasil.replace(
+        /dengan cara/gi,
+        "melalui"
+    );
+
+    if (hasil === teks) {
+
+        hasil = "Susun ulang struktur kalimat tanpa mengubah makna utama. Contoh: ubah pola subjek-predikat atau gunakan kata penghubung yang lebih tepat.";
+
+    }
+
+    document.getElementById("hasilParafrase").innerHTML = `
+        <div class="comparison">
+
+            <div class="before">
+                <h3>Kalimat Asli</h3>
+                <p>${teks}</p>
+            </div>
+
+            <div class="after">
+                <h3>Saran Parafrase</h3>
+                <p>${hasil}</p>
+            </div>
+
+        </div>
+
+        <div class="success">
+            <strong>Tips:</strong>
+            Periksa kembali apakah makna kalimat hasil parafrase
+            tetap sama dengan kalimat asli.
+        </div>
+
+        <button onclick="goToStep(6)">
+            Lanjut ke Kuis →
+        </button>
+    `;
+}
+
+
+const quiz = [
+
+    {
+        q: "Bagian teks prosedur yang menjelaskan hasil yang ingin dicapai disebut...",
+        options: [
+            "Tujuan",
+            "Langkah-langkah",
+            "Penutup",
+            "Argumentasi"
+        ],
+        answer: 0
+    },
+
+    {
+        q: "Kalimat yang paling sesuai digunakan dalam langkah prosedur adalah...",
+        options: [
+            "Aplikasi itu sangat bagus untuk digunakan.",
+            "Bukalah aplikasi pengolah kata.",
+            "Menurut saya aplikasi itu menarik.",
+            "Aplikasi tersebut mungkin mudah digunakan."
+        ],
+        answer: 1
+    },
+
+    {
+        q: "Manakah kata yang merupakan bentuk baku?",
+        options: [
+            "Resiko",
+            "Ijin",
+            "Aktifitas",
+            "Risiko"
+        ],
+        answer: 3
+    },
+
+    {
+        q: "Kalimat berikut yang paling efektif adalah...",
+        options: [
+            "Setelah itu kemudian masukkan data ke dalam aplikasi.",
+            "Kemudian setelah itu lalu masukkan data.",
+            "Setelah itu, masukkan data ke dalam aplikasi.",
+            "Setelah kemudian itu, masukkan data."
+        ],
+        answer: 2
+    },
+
+    {
+        q: "Tujuan utama parafrase adalah...",
+        options: [
+            "Mengubah makna teks",
+            "Menghilangkan informasi penting",
+            "Menyampaikan kembali informasi dengan susunan berbeda tanpa mengubah makna",
+            "Memperpanjang teks"
+        ],
+        answer: 2
+    },
+
+    {
+        q: "Dalam teks prosedur, langkah-langkah sebaiknya...",
+        options: [
+            "Disusun secara acak",
+            "Disusun berdasarkan urutan yang logis",
+            "Berisi pendapat penulis",
+            "Berisi cerita pengalaman"
+        ],
+        answer: 1
+    }
+
+];
+
+
+function tampilkanQuiz() {
+
+    let html = "";
+
+    quiz.forEach((item, index) => {
+
+        html += `
+            <div class="quiz-question">
+
+                <strong>${index + 1}. ${item.q}</strong>
+
+                ${item.options.map((option, i) => `
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q${index}"
+                            value="${i}">
+                        ${option}
+                    </label>
+                `).join("")}
+
+            </div>
+        `;
+
+    });
+
+    document.getElementById("quizContainer").innerHTML = html;
+}
+
+
+function cekQuiz() {
+
+    let benar = 0;
+
+    quiz.forEach((item, index) => {
+
+        const jawaban = document.querySelector(
+            `input[name="q${index}"]:checked`
+        );
+
+        if (jawaban && Number(jawaban.value) === item.answer) {
+            benar++;
+        }
+
+    });
+
+    nilaiQuiz = Math.round((benar / quiz.length) * 100);
+
+    document.getElementById("hasilQuiz").innerHTML = `
+        <div class="result-box">
+
+            <h3>Hasil Kuis</h3>
+
+            <div class="score">
+                ${nilaiQuiz}
+            </div>
+
+            <p>
+                Jawaban benar: ${benar} dari ${quiz.length}
+            </p>
+
+            <button onclick="hitungEvaluasi()">
+                Lihat Evaluasi Akhir →
+            </button>
+
+        </div>
+    `;
+}
+
+
+function hitungEvaluasi() {
+
+    let skorTulisan = 80;
+
+    if (pemeriksaanSelesai) {
+        skorTulisan = 90;
+    }
+
+    const skorAkhir = Math.round(
+        (skorTulisan * 0.6) +
+        (nilaiQuiz * 0.4)
+    );
+
+    document.getElementById("skorAkhir").innerText = skorAkhir;
+
+    let kategori = "";
+    let feedback = "";
+
+    if (skorAkhir >= 90) {
+
+        kategori = "Sangat Baik";
+
+        feedback = `
+            <div class="success">
+                <h3>Sangat Baik!</h3>
+                <p>
+                    Kamu sudah memahami struktur teks prosedur,
+                    penggunaan bahasa, dan prinsip penyuntingan.
+                </p>
+                <p>
+                    Tantangan berikutnya adalah membuat teks prosedur
+                    yang lebih kompleks dan argumentatif.
+                </p>
+            </div>
+        `;
+
+    } else if (skorAkhir >= 75) {
+
+        kategori = "Baik";
+
+        feedback = `
+            <div class="success">
+                <h3>Baik!</h3>
+                <p>
+                    Pemahamanmu sudah cukup baik. Perhatikan kembali
+                    penggunaan kata baku, tanda baca, dan keefektifan
+                    kalimat.
+                </p>
+            </div>
+        `;
+
+    } else {
+
+        kategori = "Perlu Latihan";
+
+        feedback = `
+            <div class="warning">
+                <h3>Perlu Latihan</h3>
+                <p>
+                    Pelajari kembali struktur teks prosedur,
+                    ciri kebahasaan, dan penggunaan kalimat efektif.
+                </p>
+            </div>
+        `;
+
+    }
+
+    document.getElementById("kategori").innerText = kategori;
+
+    document.getElementById("feedbackAkhir").innerHTML = feedback;
+
+    goToStep(7);
+}
+
+
+function resetAplikasi() {
+
+    if (!confirm("Mulai kembali dari awal?")) {
+        return;
+    }
+
+    location.reload();
+
+}
+
+
+tampilkanQuiz();
+updateProgress();
+
+</script>
+
+</body>
+</html>
